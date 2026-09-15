@@ -150,9 +150,9 @@ class Project:
     @property
     def label(self) -> str:
         if self.cwd:
-            return self.cwd
+            return tildify(self.cwd)
         if self.cwd_guess:
-            return f"{self.cwd_guess} (guessed)"
+            return f"{tildify(self.cwd_guess)} (guessed)"
         return f"?{self.encoded.name}"
 
     @property
@@ -998,6 +998,14 @@ def rehome(sess: Session, new_cwd: str, root: Path) -> tuple[bool, str]:
 
 
 # ───────────────────────────────────────────────────────────── format ──
+
+
+def tildify(path: str | Path) -> str:
+    """Replace a leading home directory in path with ~."""
+    text, home = str(path), str(Path.home())
+    if home not in ("", "/") and (text == home or text.startswith(home + os.sep)):
+        return "~" + text[len(home) :]
+    return text
 
 
 def human_bytes(n: float) -> str:

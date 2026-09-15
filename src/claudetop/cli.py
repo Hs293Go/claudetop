@@ -24,13 +24,14 @@ from claudetop.core import (
     reclaimable,
     restore,
     scan,
+    tildify,
 )
 
 # ──────────────────────────────────────────────────────── report mode ──
 
 
 def print_report(idx: Index, window: int | None) -> None:
-    print(f"\n{APP} — {idx.root}")
+    print(f"\n{APP} — {tildify(idx.root)}")
     print(
         f"{len(idx.sessions)} sessions across {len(idx.projects)} projects, "
         f"{human_bytes(idx.total_size)} on disk "
