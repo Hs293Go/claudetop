@@ -64,6 +64,7 @@ from claudetop.core import (
     scan,
     session_paths,
     short_model,
+    tildify,
 )
 
 ACCENT = "color(173)"
@@ -422,7 +423,10 @@ class DetailScreen(Screen[None]):
         fields: list[tuple[str, str | Text]] = [
             ("session id", s.sid),
             ("status", status),
-            ("project", s.cwd or f"unknown (dir {s.project_dir.name})"),
+            (
+                "project",
+                tildify(s.cwd) if s.cwd else f"unknown (dir {s.project_dir.name})",
+            ),
             ("git branch", s.git_branch or "—"),
             ("last active", f"{human_age(s.mtime)}  ({s.last_ts or '—'})"),
             ("events", f"{s.events:,} records"),
@@ -613,7 +617,7 @@ class ClaudeTop(App[None]):
         self.idx = idx
         hard = " · HARD DELETE" if self.hard else ""
         self.sub_title = (
-            f"{idx.root} · {len(idx.sessions)} sessions · "
+            f"{tildify(idx.root)} · {len(idx.sessions)} sessions · "
             f"{human_bytes(idx.total_size)}{hard}"
         )
         self.refresh_sessions()

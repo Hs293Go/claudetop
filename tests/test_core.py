@@ -39,6 +39,14 @@ def test_context_window_follows_peak(fake):
     assert by[fake.S2].context_window(500_000) == 500_000
 
 
+def test_tildify_contracts_only_paths_under_home(monkeypatch):
+    monkeypatch.setenv("HOME", "/home/alex")
+    assert core.tildify("/home/alex") == "~"
+    assert core.tildify("/home/alex/src/app") == "~/src/app"
+    assert core.tildify("/home/alexander/src") == "/home/alexander/src"
+    assert core.tildify("/srv/app") == "/srv/app"
+
+
 # ── scanning ──
 
 
