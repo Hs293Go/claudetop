@@ -3,10 +3,29 @@ name = "claudetop"
 version = "0.1.0"
 description = "Inspect and clean up Claude Code sessions on disk"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "H S Helson Go" }]
+keywords = ["claude", "claude-code", "tui", "textual", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Utilities",
+]
 requires-python = ">=3.12"
 dependencies = [
     "textual>=8.2.8",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Hs293Go/claudetop"
+Issues = "https://github.com/Hs293Go/claudetop/issues"
 
 [project.scripts]
 claudetop = "claudetop.cli:main"

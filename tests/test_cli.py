@@ -5,8 +5,18 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from importlib.metadata import version
+
+import pytest
 
 from claudetop import cli, core
+
+
+def test_version_flag(capsys):
+    with pytest.raises(SystemExit) as exit_info:
+        cli.main(["--version"])
+    assert exit_info.value.code == 0
+    assert capsys.readouterr().out.strip() == f"claudetop {version('claudetop')}"
 
 
 def test_report_lists_orphans_separately(fake, capsys):

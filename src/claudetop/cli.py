@@ -7,6 +7,7 @@ import json
 import os
 import sys
 from collections import defaultdict
+from importlib.metadata import version
 from pathlib import Path
 
 from claudetop.core import (
@@ -100,6 +101,9 @@ def _run(argv: list[str] | None) -> int:
     ap = argparse.ArgumentParser(
         prog=APP,
         description="Inspect and clean up Claude Code sessions on disk.",
+    )
+    ap.add_argument(
+        "--version", action="version", version=f"%(prog)s {version('claudetop')}"
     )
     ap.add_argument(
         "--root",
